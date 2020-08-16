@@ -1,6 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/android,microsoftoffice,jupyternotebooks,python,macos,text
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,microsoftoffice,jupyternotebooks,python,macos,text
 
+
+conversation_first_approach-checkpoint.ipynb
+Kick-Off.md
+topics.txt
+
+
 ### Android ###
 # Built application files
 *.apk
