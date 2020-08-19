@@ -21,14 +21,19 @@ bad_cleaning_func.ipynb
 conversation_first_approach.ipynb
 Sentiment analysis functions.ipynb
 func_testing.ipynb
+random_forest.ipynb
+testing_models.ipynb
+testing_modelsV2.ipynb
 
 Kick-Off.md
 
 topics.txt
 credentials.txt
+emotions_data.txt
+test.txt
+train.txt
 
 spotify_data.csv
-
 
 ### Android ###
 # Built application files

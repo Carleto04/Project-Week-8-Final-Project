@@ -26,8 +26,8 @@ def recommender(user_sent):
            'mode', 'name', 'popularity', 'release_date', 'speechiness', 'tempo', 'year'], axis=1)
     
     #cathegorize songs with valence to sentiments
-    bins = [-np.inf, 0.33, 0.66, np.inf]
-    labels = ['negative', 'neutral', 'positive']
+    bins = [-np.inf, 0.166, 0.33, 0.5, 0.66, 0.83, np.inf]
+    labels = ['anger', 'sadness', 'fear', 'surprise', 'joy', 'love']
     spoty_mood_clean['sentiment'] = pd.cut(spoty_mood_clean['valence'], labels=labels, bins=bins)
 
 
@@ -40,34 +40,32 @@ def recommender(user_sent):
                                                                                   client_secret = SPOTIPY_CLIENT_SECRET))
 
     #tracks lists grouped by sentiment
-    positive_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
-                           if spoty_mood_clean['sentiment'][track] == "positive"]
-    negative_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
-                           if spoty_mood_clean['sentiment'][track] == "negative"]
-    neutral_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
-                           if spoty_mood_clean['sentiment'][track] == "neutral"]
-
+    anger_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "anger"]
+    sadness_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "sadness"]
+    fear_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "fear"]
+    surprise_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "surprise"]
+    joy_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "joy"]
+    love_tracks_lst = [spoty_mood_clean['id'][track] for track in range(len(spoty_mood_clean)) 
+                           if spoty_mood_clean['sentiment'][track] == "love"]
+    
+    
     #choose randomly a track_ID from sentiments track lists
-    track_pos = random.choice(positive_tracks_lst)
-    track_neg = random.choice(negative_tracks_lst)
-    track_neu = random.choice(neutral_tracks_lst)
+    track_anger = random.choice(anger_tracks_lst)
+    track_sadness = random.choice(sadness_tracks_lst)
+    track_fear = random.choice(fear_tracks_lst)
+    track_surprise = random.choice(surprise_tracks_lst)
+    track_joy = random.choice(joy_tracks_lst)
+    track_love = random.choice(love_tracks_lst)
     
     #find the track through track_ID
-    recomm_answ_pos = spotify.track(track_id=track_pos)
-    recomm_answ_neg = spotify.track(track_id=track_neg)
-    recomm_answ_neu = spotify.track(track_id=track_neu)
+    recommendations = {'anger': spotify.track(track_id=track_anger), 'sadness': spotify.track(track_id=track_sadness), 'fear': spotify.track(track_id=track_fear), 'surprise': spotify.track(track_id=track_surprise), 'joy': spotify.track(track_id=track_joy), 'love': spotify.track(track_id=track_love)}
     
     #output the name, singer and link to recommendation depending on the sentiment
-    if user_sent == "positive":
-        print('track    : ', recomm_answ_pos['name'])
-        print('artist    :', recomm_answ_pos['album']['artists'][0]['name'])
-        print('audio    : ', recomm_answ_pos['external_urls']['spotify'])
-    elif user_sent == "negative":
-        print('track    : ', recomm_answ_neg['name'])
-        print('artist    :', recomm_answ_neg['album']['artists'][0]['name'])
-        print('audio    : ', recomm_answ_neg['external_urls']['spotify'])
-    else:
-        print('track    : ', recomm_answ_neu['name'])
-        print('artist    :', recomm_answ_neu['album']['artists'][0]['name'])
-        print('audio    : ', recomm_answ_neu['external_urls']['spotify'])
-
+    print('track    : ', recommendations.get(user_sent)['name'])
+    print('artist    :', recommendations.get(user_sent)['album']['artists'][0]['name'])
+    print('audio    : ', recommendations.get(user_sent)['external_urls']['spotify'])
