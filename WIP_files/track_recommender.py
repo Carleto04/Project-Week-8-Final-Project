@@ -32,8 +32,8 @@ def recommender(user_sent):
 
 
     # To keep token secured
-    SPOTIPY_CLIENT_ID = '97f62274085f41b69f9fe2d69b8aea43'
-    SPOTIPY_CLIENT_SECRET = getpass.getpass(prompt='Enter-your-token-here')
+    SPOTIPY_CLIENT_ID = '194622e758954eb795133bea05a16af5'
+    SPOTIPY_CLIENT_SECRET = '940aa1c3b4ba41c7984492033832b1a7'
 
     #activate spotipy
     spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = SPOTIPY_CLIENT_ID, 
