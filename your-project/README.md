@@ -1,72 +1,75 @@
 <img src="https://bit.ly/2VnXWr2" alt="Ironhack Logo" width="100"/>
 
-# Title of My Project
-*[Your Name]*
+# Mozart's Sister
+*by Cristina Arias and Carles Rosell*
 
-*[Your Cohort, Campus & Date]*
+*[Data Analysis, Ironhack Barcelona & 19-08-2020]*
 
 ## Content
 - [Project Description](#project-description)
-- [Hypotheses / Questions](#hypotheses-questions)
 - [Dataset](#dataset)
 - [Cleaning](#cleaning)
-- [Analysis](#analysis)
 - [Model Training and Evaluation](#model-training-and-evaluation)
-- [Conclusion](#conclusion)
 - [Future Work](#future-work)
 - [Workflow](#workflow)
-- [Organization](#organization)
 - [Links](#links)
 
 ## Project Description
-Write a short description of your project: 3-5 sentences about what your project is about, why you chose this topic (if relevant), and what you are trying to show.
-
-## Hypotheses / Questions
-* What data/business/research/personal question you would like to answer?
-* What is the context for the question and the possible scientific or business application?
-* What are the hypotheses you would like to test in order to answer your question?  
-Frame your hypothesis with statistical/data languages (i.e. define Null and Alternative Hypothesis). You can use formulas if you want but that is not required.
+Mozart's Sister can recommend you songs in Spotify based on the emotions she detects you are experiencing from having a short written conversation with you.
 
 ## Dataset
-* Where did you get your data? If you downloaded a dataset (either public or private), describe where you downloaded it and include the command to load the dataset.
-* Did you build your own datset? If so, did you use an API or a web scraper? PRovide the relevant scripts in your repo.
-* For all types of datasets, provide a description of the size, complexity, and data types included in your dataset, as well as a schema of the tables if necessary.
-* If the question cannot be answered with the available data, why not? What data would you need to answer it better?
+To teach Mozart's Sister how to recognise emotions we have used a dataset with sentences linked to different emotions obtained from the work presented on the 
+paper "Contextualized Affect Representations for Emotion Recognition" by Elvis Saravia, Hsien-Chi Toby Liu, Yen-Hao Huang, Junlin Wu, Yi-Shin Chen 
+(https://www.aclweb.org/anthology/D18-1404/).
+
+This dataset is constituted by:
+- 18K sentences that we have splitted in 16K for model training and 2K for model testing.
+- These sentences are linked to the emotion tags 'love', 'joy', 'surprise', 'sadness', 'fear' and 'anger'.
+
+
+The folder structure is as follows:
+1. Data: Contains the training and test set as well as the spotify data (.txt and .csv).
+2. YourProject: Final_prediction_model (model and accuracy, .ipynb); Text_cleaner (cleaning and vectorization function, .ipynb, .py), 
+	Skeleton_appVF (interface, .ipynb, .py), track_recommender (spotify connection function, .ipynb, .py); 
+	Emotion_detect_model and Text_vectorizer_model (trained model, .sav);
+3. WIP: others
 
 ## Cleaning
-Describe your full process of data wrangling and cleaning. Document why you chose to fill missing values, extract outliers, or create the variables you did as well as your reasoning behind the process.
+To feed the data into the algorithm, we first remove the noise from the sentences. We achieve this by using the regular expressions module to remove unwanted 
+characters like spaces and symbols, as well as stopwords and stemming.
 
-## Analysis
-* Overview the general steps you went through to analyze your data in order to test your hypothesis.
-* Document each step of your data exploration and analysis.
-* Include charts to demonstrate the effect of your work.
-* If you used Machine Learning in your final project, describe your feature selection process.
+We then isolate the words relevant to the emotions through tokenization and translate them into a language that Mozart's Sister can understand through vectorization. 
+What happens in this step is the following:
+a) Each word is turned into a feature
+b) Each sentence is assigned to the different features
+
 
 ## Model Training and Evaluation
-*Include this section only if you chose to include ML in your project.*
-* Describe how you trained your model, the results you obtained, and how you evaluated those results.
+To train Mozart's Sister we have used a Natural Language Process algorithm called Support Vector Machine (applying multilabel Crammer-Singer, which is a one-vs-rest 
+classification method). This algorithm allows to apply supervised learning methodology.
 
-## Conclusion
-* Summarize your results. What do they mean?
-* What can you say about your hypotheses?
-* Interpret your findings in terms of the questions you try to answer.
+The objective of the Support Vector Machine algorithm is to find a hyperplane in an n-dimensional space (n being the number of features) that distinctly classifies 
+the data points and predicts the appropriate label.
+
+Test_set prediction capability of Mozart's Sister currently at 89%.
+
 
 ## Future Work
-Address any questions you were unable to answer, or any next steps or future extensions to your project.
+1. Even when it is unlikely due to the wide spotify selection available, it would be useful to incorporate user's feedback into the algorithm, so that when the user 
+dislikes a recommendation, it is not displayed again.
+2. Creating a chatbot conversation based on NLP.
+3. Improving the emotion prediction capability of Mozart's Sister. It would also be useful to improve her detection of full usual expressions.
 
 ## Workflow
-Outline the workflow you used in your project. What were the steps?
-How did you test the accuracy of your analysis and/or machine learning algorithm?
+A. User name collection
+B. Greetings
+C. Emotion detection
+D. Recommendation
+E. Feedback
+F. Loop
 
-## Organization
-How did you organize your work? Did you use any tools like a trello or kanban board?
-
-What does your repository look like? Explain your folder and file structure.
 
 ## Links
-Include links to your repository, slides and trello/kanban board. Feel free to include any other links associated with your project.
-
-
-[Repository](https://github.com/)  
-[Slides](https://slides.com/)  
-[Trello](https://trello.com/en)  
+[Repository](https://github.com/Carleto04/Project-Week-8-Final-Project)  
+[Slides](https://slides.com/cris-arias/deck-8ae022)  
+[Trello](https://trello.com/b/x8FKuzHh/projectfinal-your-face-is-a-poem)  
